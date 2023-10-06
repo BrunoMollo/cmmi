@@ -1,12 +1,12 @@
-<script>
+<script lang='ts'>
   const key_words={
     OPF:['organi',  'activo'],
     OPD:['organi', 'activo'],
     OT:['organi', 'activo'],
     PP:['proyecto'],
-    PMC:['proyecto'],
-    VAL:['proyecto', 'cliente', 'aceptacion','producto de trabajo' ],
-    VER:['proyecto','producto de trabajo' ],
+    PMC:['proyecto', 'retraso', 'reunión de avance', 'plan'],
+    VAL:['proyecto', 'cliente', 'aceptacion','producto de trabajo', 'diagramas de secuencia', 'casos de uso', 'caso de uso' ],
+    VER:['proyecto','producto de trabajo','diagramas de secuencia', 'casos de uso', 'caso de uso', 'Inspección' ],
   }
 
   let question=''
@@ -24,8 +24,10 @@
   $:{
     for(let area in counts){
       counts[area]=0
+      if(key_words[area]===undefined) continue
       key_words[area].forEach(word=>{
-        if(question.includes(word)){
+        const regex= new RegExp(word, 'i')
+        if(question.match(regex)){
           counts[area]++ 
         }
       })
